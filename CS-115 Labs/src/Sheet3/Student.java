@@ -22,7 +22,7 @@ public class Student {
 		return Math.round(((cw1 * 0.1) + (cw2 * 0.1) + (exam * 0.8)) * 10.0) / 10.0;
 	}
 	
-	public String getfirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
 	
