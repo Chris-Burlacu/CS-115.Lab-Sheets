@@ -9,38 +9,44 @@ public class FinalMark {
 
 	public static void main(String[] args) {
 
-		readFile();
+		// outputs final marks in descending order
+		for(Student stu: descFinalMark(readFile())) {
+			System.out.println(stu.getfirstName() + " " + stu.getSurname() + ": " + stu.getFinalMark());
+		}
 		
 		
 
 	}
 	
-	public static void descFinalMark(Student[] students){
+	/**
+	 * sorts a Student array by descending order of final marks
+	 * @param students array being sorted
+	 * @return sorted array
+	 */
+	public static Student[] descFinalMark(Student[] students){		
 		Student temp;
 		
 		for(int i = 0; i < students.length - 1; i++) {
-			for(int n = 1; n < students.length ; n++) {
-				
+			for(int n = 1; n < students.length ; n++) {				
 				if(students[n].getFinalMark() > students[n - 1].getFinalMark()) {
 					temp = students[n];
 					students[n] = students[n-1];
-					students[n-1] = temp;
-					
+					students[n-1] = temp;					
 				}				
 			}			
 			
 			
-		}
-
-
-		for(Student stu: students) {
-			System.out.println(stu.getName() + " " + stu.getFinalMark());
-		}
-		
-		
+		}		
+		return students;			
 	}
 
-	public static void readFile() {
+	
+	/**
+	 * reads in a file of students data
+	 * adds students to an array
+	 * @return the array of students
+	 */
+	public static Student[] readFile() {
 		Student[] students = new Student[200];
 		Scanner in = null;
 		Scanner scan = null;
@@ -50,29 +56,20 @@ public class FinalMark {
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		}
-
-		int count = 0;
-		while (in.hasNextLine()) {
+		
+		/* Loops through all lines in the file */
+		for(int i = 0; in.hasNextLine(); i++) {
 			String student = in.nextLine();
 			scan = new Scanner(student);
 			
-			Student newStudent = new Student(scan.nextInt(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.nextInt());
-
-			/*String id = " (" + scan.next() + "): ";
-			System.out.println(scan.next() + " " + scan.next() + id
-					+ Math.round(((scan.nextInt() * 0.1) + (scan.nextInt() * 0.1) + (scan.nextInt() * 0.8)) * 10.0)
-							/ 10.0);*/
-			//students.add(newStudent);
-			students[count]  = newStudent;
-			count++;
-			
-			
-			
+			students[i]  = new Student(scan.nextInt(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.nextInt()); // adds students data to the array
 		}
+
+	
 		in.close();
 		scan.close();
 		
-		descFinalMark(students);
+		return students;
 		
 
 	}
